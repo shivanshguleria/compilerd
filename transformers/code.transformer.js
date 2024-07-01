@@ -11,6 +11,7 @@ const codeTransformer = {
             compile_message: code.compileMessage,
             error: code.error,
             stdin: code.stdin,
+            flag: code.flag
         }
     },
 }

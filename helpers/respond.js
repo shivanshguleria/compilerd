@@ -16,6 +16,7 @@ const respond = (res, code, body = null) => {
 }
 
 const respondWithException = (res, error) => {
+    console.log(error)
     logger.error(error)
 
     let errorCode = 401
@@ -26,7 +27,7 @@ const respondWithException = (res, error) => {
     }
 
     if (error.name === 'NotFoundError') errorCode = 404
-
+    delete error.level
     const body = { message: error.message }
 
     /**
@@ -35,7 +36,7 @@ const respondWithException = (res, error) => {
      */
     _logNon200Codes(errorCode, JSON.parse(JSON.stringify(body)))
 
-    return res.status(errorCode).send(body)
+    return res.status(errorCode).send(error)
 }
 
 module.exports = { respond, respondWithException }

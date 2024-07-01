@@ -1,4 +1,4 @@
-const { CPP, C, PYTHON, JAVA, NODEJS, RUBY, PROMPTV1, PROMPTV2 } = require('../enums/supportedLanguages')
+const { CPP, C, PYTHON, JAVA, NODEJS, RUBY, PROMPTV1, PROMPTV2, GO, RUST, LUA } = require('../enums/supportedLanguages')
 const ONE_MB = 1024 // ulimit uses Kilobyte as base unit
 const ALLOWED_RAM = process.env.ALLOWED_RAM || 512
 
@@ -18,8 +18,8 @@ const LANGUAGES_CONFIG = {
         memory: ALLOWED_RAM * ONE_MB,
     },
     [PYTHON]: {
-        compile: 'python -m compileall -q solution.py',
-        run: 'python solution.py',
+        compile: 'python3 -m compileall -q solution.py',
+        run: 'python3 solution.py',
         timeout: 10,
         filename: 'solution.py',
         memory: ALLOWED_RAM * ONE_MB,
@@ -50,6 +50,27 @@ const LANGUAGES_CONFIG = {
     },
     [PROMPTV2]: {
         model: 'gpt-3.5-turbo-1106',
+    },
+    [RUST]: {                     //new language 1
+        compile: 'rustc solution.rs',
+        run: './solution',
+        timeout: 10,
+        filename: 'solution.rs',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [GO]: { //new language 2
+        compile: 'go build  solution.go',
+        run: './solution',
+        timeout: 10,
+        filename: 'solution.go',
+        memory: 786432,   //it seems go requires more mem to build program than 512 MB, fixed on 780MB
+    },
+    [LUA]:  { //new language 3
+        compile: 'luac -o solution.out solution.lua',
+        run: 'lua solution.out',
+        timeout: 10,
+        filename: 'solution.lua',
+        memory: ALLOWED_RAM * ONE_MB,   //it seems go requires more mem to build program than 512 MB, fixed on 780MB
     },
 }
 

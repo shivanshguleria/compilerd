@@ -21,6 +21,7 @@
     "joi": "^17.7.0",
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
+    "nodemon": "^3.1.4",
     "openai": "~4.24.1",
     "puppeteer": "22.7.0",
     "sqlite-parser": "^1.0.1",

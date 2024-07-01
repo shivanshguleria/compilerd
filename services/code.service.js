@@ -8,7 +8,7 @@ const sqlite3 = require('sqlite3').verbose()
 const { PYTHON, PROMPTV1, PROMPTV2 } = require('../enums/supportedLanguages')
 const logger = require('../loader').helpers.l
 const OpenAI = require('openai')
-const openai = new OpenAI()
+const openai = new OpenAI({"apiKey": process.env.OPENAPIKEY})
 const { LANGUAGES_CONFIG } = require('../configs/language.config')
 const Joi = require('joi')
 const memoryUsedThreshold = process.env.MEMORY_USED_THRESHOLD || 512
@@ -213,6 +213,7 @@ const _executeCode = async (req, res, response) => {
         await _runScript('rm -rf /tmp/*', res)
 
         // Write file in tmp folder based on language
+        console.log(langConfig)
         await fs.promises.writeFile(`/tmp/${langConfig.filename}`, code)
 
         const compileCommand = `cd /tmp/ && ${langConfig.compile}`
